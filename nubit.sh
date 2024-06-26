@@ -67,16 +67,16 @@ fi
 
 # Установка ноды в созданной screen сессии
 print_message "Установка ноды..." "32"
-if screen -S ${SESSION_NAME} -p 0 -X stuff "${COMMAND}$(printf \\r)"; then
-    print_message "Команда установки ноды успешно отправлена в screen сессию." "32"
+if ${COMMAND}$(printf \\r); then
+    print_message "Команда установки ноды успешна." "32"
 else
-    print_message "Ошибка при отправке команды установки ноды. Прерывание скрипта." "31"
+    print_message "Ошибка при установки ноды. Прерывание скрипта." "31"
     exit 1
 fi
 
 # Ожидание 3 минут перед проверкой логов
 print_message "Ожидание 3 минут перед ..." "93"
-countdown 180 93
+countdown 70 93
 
 # Автоматический выход из screen сессии
 print_message "Автоматический выход из screen сессии..." "32"
