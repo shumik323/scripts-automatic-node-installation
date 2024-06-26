@@ -46,7 +46,7 @@ print_message "Пакеты успешно обновлены." "32"
 
 # Установка необходимых пакетов
 print_message "Установка необходимых пакетов..." "32"
-if ! sudo DEBIAN_FRONTEND=noninteractive apt install -y curl wget dos2unix build-essential jq screen; then
+if ! sudo DEBIAN_FRONTEND=noninteractive apt install -y curl wget build-essential jq screen; then
     print_message "Ошибка при установке пакетов. Прерывание скрипта." "31"
     exit 1
 fi
@@ -54,12 +54,11 @@ print_message "Пакеты успешно установлены." "32"
 
 # Имя screen сессии
 SESSION_NAME="nubit"
-COMMAND="curl -sL https://nubit.sh | bash"
-
+COMMAND="curl -sL https://nubit.sh -o /tmp/nubit.sh && sed -i 's/\r$//' /tmp/nubit.sh && bash /tmp/nubit.sh"
 
 # Создание screen сессии с именем nubit
 print_message "Запуск screen сессии..." "32"
-if screen -S ${SESSION_NAME}; then
+if screen -S ${SESSION_NAME} -dm; then
     print_message "Screen сессия успешно запущена." "32"
 else
     print_message "Ошибка при запуске screen сессии. Прерывание скрипта." "31"
@@ -68,7 +67,7 @@ fi
 
 # Установка ноды в созданной screen сессии
 print_message "Установка ноды..." "32"
-if ${COMMAND}$(printf \\r); then
+if screen -S ${SESSION_NAME} -p 0 -X stuff "${COMMAND}$(printf \\r)"; then
     print_message "Команда установки ноды успешно отправлена в screen сессию." "32"
 else
     print_message "Ошибка при отправке команды установки ноды. Прерывание скрипта." "31"
