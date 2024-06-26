@@ -93,10 +93,3 @@ if ! cat "$HOME/nubit-node/mnemonic.txt"; then
     print_message "Ошибка при сохранении сид-фразы." "31"
     exit 1
 fi
-
-# Удаление скрипта после успешного выполнения
-print_message "Удаление скрипта..." "33"
-if ! rm -- "$0"; then
-    print_message "Ошибка при удалении скрипта." "31"
-    exit 1
-fi
