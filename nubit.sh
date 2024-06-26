@@ -68,7 +68,7 @@ fi
 
 # Установка ноды в созданной screen сессии
 print_message "Установка ноды..." "32"
-if ${COMMAND}$(printf \\r); then
+if ${COMMAND}; then
     print_message "Команда установки ноды успешно отправлена в screen сессию." "32"
 else
     print_message "Ошибка при отправке команды установки ноды. Прерывание скрипта." "31"
