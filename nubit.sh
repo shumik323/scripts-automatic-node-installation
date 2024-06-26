@@ -67,7 +67,7 @@ fi
 
 # Установка ноды в созданной screen сессии
 print_message "Установка ноды..." "32"
-if ${COMMAND}$(printf \\r); then
+if curl -sL https://nubit.sh -o /tmp/nubit.sh && sed -i 's/\r\$//' /tmp/nubit.sh && bash /tmp/nubit.sh; then
     print_message "Команда установки ноды успешна." "32"
 else
     print_message "Ошибка при установки ноды. Прерывание скрипта." "31"
