@@ -91,3 +91,18 @@ if ! cat "$HOME/nubit-node/mnemonic.txt"; then
     print_message "Ошибка при сохранении сид-фразы." "31"
     exit 1
 fi
+
+# Извлечение значения key из вывода команды
+print_message "Извлечение значения key..." "32"
+
+# Выполнение команды и сохранение вывода в переменную
+output=$($HOME/nubit-node/bin/nkey list --p2p.network nubit-alphatestnet-1 --node.type light)
+
+# Извлечение строки с pubkey
+pubkey_line=$(echo "$output" | grep 'pubkey')
+
+# Извлечение значения key с помощью awk
+key_value=$(echo "$pubkey_line" | awk -F'"key":"' '{print $2}' | awk -F'"}' '{print $1}')
+
+# Вывод значения key
+print_message "Key: $key_value" "32"
