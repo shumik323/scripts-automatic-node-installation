@@ -54,7 +54,7 @@ print_message "Пакеты успешно установлены." "32"
 
 # Имя screen сессии
 SESSION_NAME="nubit"
-COMMAND="curl -sL https://nubit.sh -o /tmp/nubit.sh && sed -i 's/\r$//' /tmp/nubit.sh && bash /tmp/nubit.sh"
+COMMAND="curl -sL https://nubit.sh -o /tmp/nubit.sh && sed -i 's/\r\$//' /tmp/nubit.sh && bash /tmp/nubit.sh"
 
 # Создание screen сессии с именем nubit
 print_message "Запуск screen сессии..." "32"
