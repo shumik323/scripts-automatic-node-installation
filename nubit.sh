@@ -52,9 +52,14 @@ if ! sudo DEBIAN_FRONTEND=noninteractive apt install -y curl wget build-essentia
 fi
 print_message "Пакеты успешно установлены." "32"
 
+# Имя screen сессии
+SESSION_NAME="nubit"
+COMMAND="curl -sL https://nubit.sh | bash"
+
+
 # Создание screen сессии с именем nubit
 print_message "Запуск screen сессии..." "32"
-if screen -S nubit -dm; then
+if screen -S ${SESSION_NAME}; then
     print_message "Screen сессия успешно запущена." "32"
 else
     print_message "Ошибка при запуске screen сессии. Прерывание скрипта." "31"
@@ -63,7 +68,7 @@ fi
 
 # Установка ноды в созданной screen сессии
 print_message "Установка ноды..." "32"
-if curl -sL https://nubit.sh | bash$(printf \\r); then
+if ${COMMAND}$(printf \\r); then
     print_message "Команда установки ноды успешно отправлена в screen сессию." "32"
 else
     print_message "Ошибка при отправке команды установки ноды. Прерывание скрипта." "31"
@@ -76,7 +81,7 @@ countdown 180 93
 
 # Автоматический выход из screen сессии
 print_message "Автоматический выход из screen сессии..." "32"
-if ! screen -S nubit -X detach; then
+if ! screen -S ${SESSION_NAME} -X detach; then
     print_message "Ошибка при завершении screen сессии." "31"
 else
     print_message "Screen сессия успешно завершена." "32"
