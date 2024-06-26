@@ -12,13 +12,21 @@ function countdown {
     echo -ne "\n"
 }
 
+# Установка debconf-utils для предварительной настройки
+echo "Установка debconf-utils для предварительной настройки..."
+sudo apt-get install -y debconf-utils
+
+# Предварительная настройка для автоматического перезапуска сервисов
+echo "debconf debconf/frontend select Noninteractive" | sudo debconf-set-selections
+echo "debconf debconf/reconfigure boolean true" | sudo debconf-set-selections
+
 # Обновление пакетов
 echo "Обновление пакетов..."
 sudo DEBIAN_FRONTEND=noninteractive apt update && sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
 
 # Установка необходимых пакетов
 echo "Установка необходимых пакетов..."
-sudo apt install curl git wget build-essential jq screen -y
+sudo DEBIAN_FRONTEND=noninteractive apt install -y curl git wget build-essential jq screen
 
 # Запуск screen сессии и выполнение команды установки ноды
 echo "Запуск screen сессии и установка ноды..."
